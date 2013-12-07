@@ -477,6 +477,8 @@ class OSG_EXPORT GraphicsContext : public Object
         void setDefaultFboId(GLuint i) { _defaultFboId = i; }
 
         GLuint getDefaultFboId() const { return _defaultFboId; }
+		virtual void moveToThread(void* gt); //move to a QThread
+		virtual void moveBack(); //move to current thread
 
     public:
 

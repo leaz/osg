@@ -15,6 +15,7 @@
 #include <osgQt/GraphicsWindowQt>
 #include <osgViewer/ViewerBase>
 #include <QInputEvent>
+#include <QThread>
 
 using namespace osgQt;
 
@@ -716,6 +717,8 @@ bool GraphicsWindowQt::releaseContextImplementation()
 
 void GraphicsWindowQt::swapBuffersImplementation()
 {
+    _widget->makeCurrent();
+
     _widget->swapBuffers();
 
     // FIXME: the processDeferredEvents should really be executed in a GUI (main) thread context but
@@ -735,6 +738,16 @@ void GraphicsWindowQt::requestWarpPointer( float x, float y )
 {
     if ( _widget )
         QCursor::setPos( _widget->mapToGlobal(QPoint((int)x,(int)y)) );
+}
+
+void GraphicsWindowQt::moveToThread(void* gt)
+{
+	_widget->context()->moveToThread((QThread*) gt);
+}
+
+void GraphicsWindowQt::moveBack()
+{
+	_widget->context()->moveToThread(QThread::currentThread());
 }
 
 

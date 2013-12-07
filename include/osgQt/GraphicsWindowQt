@@ -167,6 +167,9 @@ public:
 
     virtual void requestWarpPointer( float x, float y );
 
+	virtual void moveToThread(void* gt);
+	virtual void moveBack();
+
 protected:
 
     friend class GLWidget;

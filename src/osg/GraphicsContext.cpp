@@ -523,7 +523,7 @@ void GraphicsContext::close(bool callCloseImplementation)
 
     // switch off the graphics thread...
     setGraphicsThread(0);
-
+	moveBack();
 
     bool sharedContextExists = false;
 
@@ -688,7 +688,16 @@ void GraphicsContext::setGraphicsThread(GraphicsThread* gt)
     if (_graphicsThread.valid())
     {
         _graphicsThread->setParent(this);
+		moveToThread(_graphicsThread->getImplementation());
     }
+}
+
+void GraphicsContext::moveToThread(void* gt)
+{
+}
+
+void GraphicsContext::moveBack() //move to current thread
+{
 }
 
 void GraphicsContext::add(Operation* operation)
